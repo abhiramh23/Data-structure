@@ -26,7 +26,7 @@ class SLL:
         n = Node(item=data, point=self.head)
         self.head = n
 
-    def search(self, key: Any) -> Optional[Node]:
+    def find(self, key: Any) -> Optional[Node]:
         """Search for a key in the list"""
         current: Optional[Node] = self.head
         while current is not None:
@@ -37,7 +37,7 @@ class SLL:
 
     def insert_after(self, key: Any, data: Any) -> None:
         """Insert data after a key in the list"""
-        at: Optional[Node] = self.search(key=key)
+        at: Optional[Node] = self.find(key=key)
         if at is not None:
             n = Node(item=data, point=at.next)
             at.next = n
@@ -60,3 +60,42 @@ class SLL:
             print(temp.item, end=" ")
             temp = temp.next
         print()
+
+    def delete_at_first(self) -> None:
+        """Delete the first node in the list"""
+        if self.isempty():
+            pass
+        else:
+            n: Optional[Node] = self.head
+            self.head = n.next  # type: ignore
+            print(f"delete item {n.item}")  # type: ignore
+
+    def delete_at_last(self) -> None:
+        """Delete the last node in the list"""
+        if self.head is None:
+            pass
+        elif self.head.next is None:
+            self.head = None
+        else:
+            temp: Optional[Node] = self.head
+            while temp.next.next is not None:  # type: ignore
+                temp = temp.next  # type: ignore
+            temp.next = None  # type: ignore
+
+    def delete_item(self, key: Any):
+        """Delete a item"""
+        if self.head is None:
+            pass
+        elif self.head.next is None:
+            if self.head.item == key:
+                self.head = None
+        else:
+            temp: Optional[Node] = self.head
+            if temp.item == key:  # type: ignore
+                self.head = temp.next  # type: ignore
+            else:
+                while temp.next is not None:  # type: ignore
+                    if temp.next.item == key:  # type: ignore
+                        temp.next = temp.next.next  # type: ignore
+                        break
+                    temp = temp.next  # type: ignore
