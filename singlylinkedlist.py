@@ -1,17 +1,19 @@
 """ Singly Linked List"""
 
-from typing import Optional, Any
+from typing import Optional, TypeVar, Generic
+
+T = TypeVar("T")
 
 
-class Node:
+class Node(Generic[T]):
     """Node class for singly linked list"""
 
-    def __init__(self, item: Any = None, point=None):
-        self.item: Any = item
+    def __init__(self, item: Optional[T] = None, point=None):
+        self.item: Optional[T] = item
         self.next: Optional[Node] = point
 
 
-class SLL:
+class SLL(Generic[T]):
     """Singly Linked List"""
 
     def __init__(self, head: Optional[Node] = None):
@@ -21,12 +23,12 @@ class SLL:
         """Check if the list is empty"""
         return self.head is None
 
-    def insert_at_start(self, data: Any) -> None:
+    def insert_at_start(self, data: T) -> None:
         """Insert data at the start of the list"""
         n = Node(item=data, point=self.head)
         self.head = n
 
-    def find(self, key: Any) -> Optional[Node]:
+    def find(self, key: T) -> Optional[Node]:
         """Search for a key in the list"""
         current: Optional[Node] = self.head
         while current is not None:
@@ -35,14 +37,14 @@ class SLL:
             current = current.next
         return None
 
-    def insert_after(self, key: Any, data: Any) -> None:
+    def insert_after(self, key: T, data: T) -> None:
         """Insert data after a key in the list"""
         at: Optional[Node] = self.find(key=key)
         if at is not None:
             n = Node(item=data, point=at.next)
             at.next = n
 
-    def insert_last(self, data: Any) -> None:
+    def insert_last(self, data: T) -> None:
         """Insert data at the end of the list"""
         n = Node(item=data)
         if not self.isempty():
@@ -82,7 +84,7 @@ class SLL:
                 temp = temp.next  # type: ignore
             temp.next = None  # type: ignore
 
-    def delete_item(self, key: Any):
+    def delete_item(self, key: T):
         """Delete a item"""
         if self.head is None:
             pass
